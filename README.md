@@ -116,4 +116,4 @@ SILW is using the [logstash-logger](https://github.com/dwbutler/logstash-logger)
 ## License
 Copyright (c) 2014 Florin T.Pătraşcu
 
-[MIT License](LICENSE)
+[MIT License](LICENSE.txt)
