@@ -1,0 +1,9 @@
+%ul.unstyled
+  - if plugin.is_a?(Hash)
+    - plugin.each_entry do |k, v|
+      %li
+        %small
+          %strong= "#{k}:"
+          %span= "#{v}%"
+  -else
+    %small.muted=plugin

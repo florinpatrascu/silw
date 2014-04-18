@@ -1,0 +1,22 @@
+:monitoring:
+  triba:
+    :freq: 1min
+    :plugins: mem, diskio, cpu
+  derizorius:
+    :freq: 30s
+    :plugins: cpu, diskio
+
+:authentication:
+  :username: xxxxxx
+  :password: ~/.ssh/id_dsa
+
+:server: 
+  :port: 8080
+  :basic_auth:  # If creds is defined, the web server will ask for the username and password
+    :username: username 
+    :password: password
+
+# Echo the stats directly to logstash, using udp and port 5228
+:logstash:
+  :host: localhost
+  :port: 5228, udp

@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+$:.unshift File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib]))
+require "silw/cli"
+require "logger"
+require 'logstash-logger'
+
+SILW_ENV        = ENV['SILW_ENV'] || 'development'
+LOGFILE         = File.expand_path("../../log", __FILE__) + "/request.#{SILW_ENV}.log"
+PLUGINS_LOGFILE = File.expand_path("../../log", __FILE__) + "/plugins.#{SILW_ENV}.log"
+LOGS_DIR        = File.dirname(LOGFILE)
+PIDFILE         = File.expand_path("../../log", __FILE__) + '/silw_server.pid'
+
+# check if the log/ folder exists and create it if otherwise
+FileUtils.mkdir(LOGS_DIR) unless File.directory?(LOGS_DIR)
+LOG         = Logger.new(LOGFILE, 'daily')
+PLUGINS_LOG = Logger.new(PLUGINS_LOGFILE, 'daily')
+
+# Suppress back-trace when exiting command
+Signal.trap("INT") {} 
+
+Silw::Cli.start ARGV

@@ -1,0 +1,12 @@
+%ul.unstyled
+  - unless plugin.nil?
+    %li
+      %small
+        %strong= "reads:"
+        %span= "#{plugin[0]}"
+    %li
+      %small
+        %strong= "writes:"
+        %span= "#{plugin[1]}"
+  -else
+    %small.muted=plugin

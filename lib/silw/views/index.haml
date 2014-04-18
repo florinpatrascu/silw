@@ -1,0 +1,30 @@
+.row
+  .span7
+    -unless settings.agents.empty?
+      .well
+        - settings.agents.each_value do |agent|
+          %table.table-striped
+            %thead
+              %tr
+                %th(width="20%" align="right" nowrap)
+                  .span2
+                    %span.label.label-important= agent.host
+                %th
+                -unless agent.plugins.empty?
+                  -agent.plugins.each_key do |k|
+                    %th(align="left")
+                      %span.label.label= k
+            %tbody
+              -unless agent.plugins.empty?
+                %tr
+                  %td(valign="top")
+                    %small.label.label-inverse= agent.time
+                  %td
+                    %span 
+                      &nbsp; &nbsp;
+                  -agent.plugins.each do |k, v|
+                    %td(valign="top")
+                      = partial k.to_s, :plugin => v
+    -else
+      pending ...
+
