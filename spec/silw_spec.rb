@@ -55,5 +55,15 @@ module Silw
         end
       end
     end
+
+    describe "Human-readable conversions" do
+      it "should display readable numbers" do
+        expect(like_filesize(1_024 ** 0)).to eq "1.0bytes"
+        expect(like_filesize(1_024 ** 1)).to eq "1.0KB"
+        expect(like_filesize(1_024 ** 2)).to eq "1.0MB"
+        expect(like_filesize(1_024 ** 3)).to eq "1.0GB"
+        expect(like_filesize(1_024 ** 4)).to eq "1.0TB"
+      end
+    end
   end
 end

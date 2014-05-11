@@ -6,6 +6,9 @@ require "bundler/setup"
 require 'rack/test'
 require "silw"
 require "yaml"
+require 'silw/helpers'
+
+include Silw::Helpers
 
 SILW_ENV = ENV['SILW_ENV'] || 'test'
 Dir["./lib/**/*.rb"].each{|f| require f}
