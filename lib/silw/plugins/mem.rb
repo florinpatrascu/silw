@@ -3,7 +3,7 @@ require 'net/sftp'
 module Silw
   module Plugins
 
-    # Meminfo - report the memory stats collected from a remote system.
+    # Meminfo - report the memory stats collected from a remote system, in bytes, rather than KBytes.
     # For more details about meminfo see this featured article: /proc/meminfo Explained, at:
     #  - http://www.redhat.com/advice/tips/meminfo.html
     #
@@ -26,9 +26,9 @@ module Silw
       private
       def parse_meminfo(txt)
         meminfo   = txt.split(/\n/).collect{|x| x.strip}
-        memtotal  = meminfo[0].gsub(/[^0-9]/, "").to_f
-        memfree   = meminfo[1].gsub(/[^0-9]/, "").to_f
-        memactive = meminfo[5].gsub(/[^0-9]/, "").to_f
+        memtotal  = 1_024 * meminfo[0].gsub(/[^0-9]/, "").to_f
+        memfree   = 1_024 * meminfo[1].gsub(/[^0-9]/, "").to_f
+        memactive = 1_024 * meminfo[5].gsub(/[^0-9]/, "").to_f
         {:total => memtotal.round, :active => memactive.round, :free => memfree.round, 
          :usagepercentage => ((memactive * 100) / memtotal).round}
       end

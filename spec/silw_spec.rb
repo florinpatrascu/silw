@@ -24,9 +24,13 @@ module Silw
 
       Authenticate.with(config) do |user|
         user.should be_instance_of(Command)
-        mem = user.run :mem, :at => 'router', :fixture => fixture("mem.txt")
-        expect(mem.keys).to include(:host)
-        expect(mem[:mem].keys).to include(:free)
+        mem_hash = user.run :mem, :at => 'router', :fixture => fixture("mem.txt")
+        expect(mem_hash.keys).to include(:host)
+        mem = mem_hash[:mem]
+        expect(mem.keys).to include(:free)
+
+        # expecting the mem plugin to return memory info in bytes
+        expect(mem[:total]).to eq(2_075_624 * 1_024)
       end
     end
 
